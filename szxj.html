@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>少长咸集 App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('beijing.jpg'); /* 添加背景图片 */
+            background-size: cover;
+            background-position: center;
+        }
+        .container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px;
+        }
+        h3 {
+            color: #333;
+        }
+        input, button, textarea {
+            display: block;
+            margin: 10px 0;
+            padding: 8px;
+            width: 100%;
+        }
+        .hidden {
+            display: none;
+        }
+        .button-section {
+            display: flex;
+            flex-direction: column;
+            margin-top: 20px;
+        }
+        .button-section button {
+            margin: 10px 0;
+            padding: 15px;
+            font-size: 18px; /* 优化按钮文字大小 */
+            cursor: pointer;
+            background-color: #4CAF50; /* 按钮背景颜色 */
+            color: white; /* 按钮文字颜色 */
+            border: none;
+            border-radius: 5px; /* 按钮圆角 */
+            background-image: url('anjian.jpg'); /* 按钮背景图片 */
+            background-size: cover;
+        }
+        .search-bar {
+            margin: 20px 0;
+            padding: 10px;
+            width: 100%;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- 登录界面 -->
+<div class="container" id="loginSection">
+    <header>
+        <h1>少长咸集 - 老年人与大学生交流平台</h1>
+    </header>
+
+    <section>
+        <h3>用户登录</h3>
+        <form id="loginForm">
+            <label for="username">教职工号</label>
+            <input type="text" id="username" placeholder="请输入教职工号">
+           
+            <label for="password">密码</label>
+            <input type="password" id="password" placeholder="请输入密码">
+           
+            <!-- 新增手机号登录 -->
+            <label for="phone">手机号</label>
+            <input type="text" id="phone" placeholder="请输入手机号（无需密码）">
+           
+            <button type="submit">登录</button>
+        </form>
+
+ 	 <!-- 跳过登录按钮 -->
+	 <button type="button" onclick="skipLogin()">跳过登录</button> <!-- 新增跳过按钮 -->
+
+    </section>
+</div>
+
+<!-- 主页选项按钮 -->
+<div class="container hidden" id="mainSection">
+    <header>
+        <h1>欢迎来到少长咸集平台</h1>
+    </header>
+
+    <!-- 搜索栏 -->
+    <input type="text" class="search-bar" placeholder="搜索...">
+
+    <div class="button-section">
+        <button onclick="showSection('boXinXunQu')">博新寻趣</button>
+        <button onclick="showSection('jieJiaoShaoNian')">结交少年</button>
+        <button onclick="showSection('tiaoZaoShiChang')">跳蚤市场</button>
+        <button onclick="showSection('tongLingXiangHui')">同龄相会</button>
+        <button onclick="showSection('liuYan')">留言</button>
+        <button onclick="showSection('woDe')">我的</button>
+        <button onclick="showSection('sheZhi')">设置</button>
+    </div>
+</div>
+
+<!-- 博新寻趣二级页面 -->
+<div class="container hidden" id="boXinXunQu">
+    <header>
+        <h1>博新寻趣</h1>
+    </header>
+   
+    <!-- 展示他人发布的视频 -->
+    <div>
+        <h3>他人发布的视频</h3>
+        <ul>
+            <li><a href="#" onclick="showSection('videoPage')">视频标题1</a></li>
+            <li><a href="#" onclick="showSection('videoPage')">视频标题2</a></li>
+        </ul>
+    </div>
+
+    <form id="videoForm">
+        <label for="video">发布视频</label>
+        <input type="file" id="video">
+        <label for="discussion">讨论区</label>
+        <textarea id="discussion" rows="4" placeholder="分享您的想法..."></textarea>
+        <button type="submit">发布</button>
+    </form>
+
+    <button onclick="goBack()">返回主页</button>
+</div>
+
+
+<!-- 视频页面三级界面 -->
+<div class="container hidden" id="videoPage">
+    <header>
+        <h1>视频页面</h1>
+    </header>
+    <video controls width="100%">
+        <source src="video.mp4" type="video/mp4">
+    </video>
+    <h3>讨论区</h3>
+    <textarea rows="4" placeholder="写下您的评论..."></textarea>
+    <button type="submit">发布评论</button>
+
+    <button onclick="goBackToSection('boXinXunQu')">返回博新寻趣</button>
+</div>
+
+<!-- 结交少年二级页面 -->
+<div class="container hidden" id="jieJiaoShaoNian">
+    <header>
+        <h1>结交少年</h1>
+    </header>
+
+    <!-- 搜索志愿者 -->
+    <input type="text" class="search-bar" placeholder="搜索志愿者...">
+
+    <div>
+        <h3>推荐的青年志愿者</h3>
+        <ul>
+            <li>
+                <a href="#" onclick="showSection('volunteerProfile')">
+                    <img src="avatar.jpg" alt="头像" style="width:50px;height:50px;"> 志愿者1 简介
+                </a>
+            </li>
+            <li>
+                <a href="#" onclick="showSection('volunteerProfile')">
+                    <img src="avatar.jpg" alt="头像" style="width:50px;height:50px;"> 志愿者2 简介
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <button onclick="goBack()">返回主页</button>
+</div>
+
+<!-- 志愿者三级界面 -->
+<div class="container hidden" id="volunteerProfile">
+    <header>
+        <h1>志愿者1 资料</h1>
+    </header>
+    <img src="avatar.jpg" alt="头像" style="width:100px;height:100px;">
+    <p>姓名: 志愿者1</p>
+    <p>性别: 男</p>
+    <p>兴趣: 志愿服务</p>
+    <button onclick="alert('已发送预约')">预约</button>
+    <button onclick="showSection('message')">留言</button>
+
+    <button onclick="goBackToSection('jieJiaoShaoNian')">返回结交少年</button>
+</div>
+
+<!-- 跳蚤市场二级页面 -->
+<div class="container hidden" id="tiaoZaoShiChang">
+    <header>
+        <h1>跳蚤市场</h1>
+    </header>
+
+    <!-- 展示二手物品 -->
+    <div>
+        <h3>已有二手物品</h3>
+        <ul>
+            <li>物品1</li>
+            <li>物品2</li>
+        </ul>
+    </div>
+
+    <form id="marketForm">
+        <label for="item">发布二手物品信息</label>
+        <textarea id="item" rows="4" placeholder="描述您的物品..."></textarea>
+        <button type="submit">发布物品</button>
+    </form>
+
+    <button onclick="goBack()">返回主页</button>
+</div>
+
+<!-- 同龄相会二级页面 -->
+<div class="container hidden" id="tongLingXiangHui">
+    <header>
+        <h1>同龄相会</h1>
+    </header>
+
+    <!-- 搜索社交活动 -->
+    <input type="text" class="search-bar" placeholder="搜索活动...">
+
+    <!-- 展示已有的社交活动 -->
+    <div>
+        <h3>已有的社交活动</h3>
+        <ul>
+            <li>活动1</li>
+            <li>活动2</li>
+        </ul>
+    </div>
+
+    <form id="eventForm">
+        <label for="event">组织社交活动</label>
+        <textarea id="event" rows="4" placeholder="描述您的活动..."></textarea>
+        <button type="submit">发布活动</button>
+    </form>
+
+    <button onclick="goBack()">返回主页</button>
+</div>
+
+<!-- 留言二级页面 -->
+<div class="container hidden" id="liuYan">
+    <header>
+        <h1>留言</h1>
+    </header>
+    
+    <!-- 展示用户列表 -->
+    <div>
+        <h3>用户列表</h3>
+        <ul>
+            <li><a href="#" onclick="showSection('message')">用户1</a></li>
+            <li><a href="#" onclick="showSection('message')">用户2</a></li>
+        </ul>
+    </div>
+
+    <button onclick="goBack()">返回主页</button>
+</div>
+
+<!-- 留言三级界面 -->
+<div class="container hidden" id="message">
+    <header>
+        <h1>与用户1的聊天</h1>
+    </header>
+    <textarea rows="4" placeholder="写下您的留言..."></textarea>
+    <button type="submit">发送留言</button>
+
+    <button onclick="goBackToSection('liuYan')">返回留言</button>
+</div>
+
+<!-- 我的二级页面 -->
+<div class="container hidden" id="woDe">
+    <header>
+        <h1>我的</h1>
+    </header>
+    <img src="avatar.jpg" alt="头像" style="width:100px;height:100px;">
+    <p>姓名: 用户1</p>
+    <p>性别: 男</p>
+    <p>年龄: 30</p>
+    <p>电话: 123456789</p>
+    <p>兴趣: 志愿服务</p>
+    <p>自我陈述: 热心帮助老年人</p>
+    <button onclick="alert('修改个人信息')">修改个人信息</button>
+
+    <button onclick="goBack()">返回主页</button>
+</div>
+
+
+<!-- 设置页面 -->
+<div class="container hidden" id="sheZhi">
+    <header>
+        <h1>设置</h1>
+    </header>
+    <button onclick="showSection('fontSetting')">字体调节</button>
+    <button onclick="showSection('accountSecurity')">账号与安全</button>
+    <button onclick="showSection('feedback')">帮助与反馈</button>
+    <button onclick="showSection('friendPermissions')">朋友权限</button>
+    <button onclick="logout()">退出登录</button>
+
+    <button onclick="goBack()">返回主页</button>
+</div>
+
+<!-- 字体调节功能 -->
+<div class="container hidden" id="fontSetting">
+    <header>
+        <h1>字体调节</h1>
+    </header>
+    <p>调整字体大小:</p>
+    <button onclick="adjustFontSize('small')">小</button>
+    <button onclick="adjustFontSize('medium')">中</button>
+    <button onclick="adjustFontSize('large')">大</button>
+
+    <button onclick="goBackToSection('sheZhi')">返回设置</button>
+
+<!-- 账号与安全三级界面 -->
+<div class="container hidden" id="accountSecurity">
+    <header>
+        <h1>账号与安全</h1>
+    </header>
+    <p>当前账号ID: user123</p>
+
+    <button onclick="goBackToSection('sheZhi')">返回设置</button>
+</div>
+
+<!-- 帮助与反馈三级界面 -->
+<div class="container hidden" id="feedback">
+    <header>
+        <h1>帮助与反馈</h1>
+    </header>
+    <textarea rows="4" placeholder="输入您的意见..."></textarea>
+    <button type="submit">提交反馈</button>
+
+    <button onclick="goBackToSection('sheZhi')">返回设置</button>
+</div>
+
+<!-- 朋友权限三级界面 -->
+<div class="container hidden" id="friendPermissions">
+    <header>
+        <h1>朋友权限</h1>
+    </header>
+    <p>这里可以管理朋友权限。</p>
+
+    <button onclick="goBackToSection('sheZhi')">返回设置</button>
+</div>
+
+<script>
+    // 登录表单处理
+    document.getElementById('loginForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+        const phone = document.getElementById('phone').value;
+
+        if ((username && password) || phone) {
+            alert('登录成功！');
+            document.getElementById('loginSection').classList.add('hidden');
+            document.getElementById('mainSection').classList.remove('hidden');
+        } else {
+            alert('请输入有效的教职工号和密码，或手机号');
+        }
+    });
+
+    // 跳过登录
+    function skipLogin() {
+        document.getElementById('loginSection').classList.add('hidden');
+        document.getElementById('mainSection').classList.remove('hidden');
+    }
+
+    // 展示不同板块的二级页面
+    function showSection(sectionId) {
+        const sections = document.querySelectorAll('.container');
+        sections.forEach(section => section.classList.add('hidden'));
+        document.getElementById(sectionId).classList.remove('hidden');
+    }
+
+    // 返回主页
+    function goBack() {
+        showSection('mainSection');
+    }
+
+    // 字体调节功能
+    function adjustFontSize(size) {
+        document.body.style.fontSize = size; /* 根据选择调整字体大小 */
+    }
+
+    // 模拟退出登录
+    function logout() {
+        alert('已退出登录');
+        showSection('loginSection');
+    }
+</script>
+
+</body>
+</html>
